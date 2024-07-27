@@ -88,16 +88,19 @@ def process_igc_file(file_path):
     wind_data, wind_times = load_monthly_wind_data(year, month)
 
     # Zuordnen der Winddaten zu jedem Zeitpunkt
+    wind_ts_list = []
     wind_speed_avg_list = []
     wind_speed_min_list = []
     wind_speed_max_list = []
     wind_heading_list = []
     for _, row in df.iterrows():
         wind_entry = find_wind_data_for_time(wind_data, wind_times, row['Time (UTC)'])
+        wind_ts = wind_entry[0] if wind_entry else None
         wind_speed_avg = wind_entry[4] if wind_entry else None
         wind_speed_min = wind_entry[3] if wind_entry else None
         wind_speed_max = wind_entry[5] if wind_entry else None
         wind_heading = wind_entry[6] if wind_entry else None
+        wind_ts_list.append(wind_ts)
         wind_speed_avg_list.append(wind_speed_avg)
         wind_speed_min_list.append(wind_speed_min)
         wind_speed_max_list.append(wind_speed_max)
@@ -108,6 +111,7 @@ def process_igc_file(file_path):
     df['Wind Speed Min (km/h)'] = wind_speed_min_list
     df['Wind Speed Max (km/h)'] = wind_speed_max_list
     df['Wind Heading (degrees)'] = wind_heading_list
+    df['Wind Ts'] = wind_ts_list
 
     return df
 
@@ -127,10 +131,10 @@ for file_path in glob.glob(os.path.join(igc_directory, '**', '*.igc'), recursive
 final_df = pd.concat(all_dfs, ignore_index=True)
 
 # Speichern des DataFrame als CSV-Datei
-final_df.to_csv('final_data.csv', index=False)
+final_df.to_csv('height2measurement.csv', index=False)
 
 # Laden des DataFrame aus der CSV-Datei
-loaded_df = pd.read_csv('final_data.csv')
+loaded_df = pd.read_csv('height2measurement.csv')
 
 # Ausgabe des finalen DataFrame
 print(loaded_df)

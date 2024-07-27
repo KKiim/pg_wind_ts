@@ -7,7 +7,7 @@ import numpy as np
 df = pd.read_csv('final_data.csv')
 
 # Filter the data for altitude between 500 and 700
-df_filtered = df[(df['Altitude'] > 600) & (df['Altitude'] < 625)]
+df_filtered = df[(df['Altitude'] > 480) & (df['Altitude'] < 1000)]
 
 # Extract the necessary columns
 altitude = df_filtered['Altitude']

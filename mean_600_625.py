@@ -36,11 +36,11 @@ def calculate_statistics(df, lower_bound, upper_bound):
 
 
 stepSize = 50
-maxValue = int(df['Altitude'].max())
-# maxValue = 700
+# maxValue = int(df['Altitude'].max())
+maxValue = 800
 
 # Höhenintervalle berechnen und Statistiken sammeln
-intervals = range(425, maxValue, stepSize)
+intervals = range(400, maxValue, stepSize)
 statistics = []
 
 for lower_bound in intervals:
@@ -96,3 +96,6 @@ plt.legend()
 
 plt.tight_layout()
 plt.show()
+
+stats_df.to_csv('stats_df.csv', index=False)
+

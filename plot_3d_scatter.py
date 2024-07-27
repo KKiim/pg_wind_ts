@@ -4,7 +4,7 @@ from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 
 # Load the data
-df = pd.read_csv('final_data.csv')
+df = pd.read_csv('height2measurement.csv') #('final_data.csv')
 
 # Extract the necessary columns
 altitude = df['Altitude']
